@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width.initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id = "app">
+            {{ msg }}
+            <h2>{{ web.url }}</h2>
+            <h2>{{ web.user }}</h2>
+
+            <button v-on:click=" edit">修改</button><br>
+            <!--为button按钮绑定edit方法修改事件-->
+            <button @click=" edit">修改（简写形式）</button>
+            <!--简写方式 @click-->
+            <hr>
+            回车<input type="text" @keyup.enter="add(40,60)"> 
+            <!--keyup: 是用户松开按键时触发的事件
+                enter: 回车
+                @keyup.enter: 当用户按下回车松开按钮时会触发的事件-->
+            空格<input type="text" @keyup.space="add(20,30)"><br>
+            Tab<input type="text" @keydown.tab ="add(10,20)"><br>
+            <!--keydown: 是按下按键立即触发的事件-->
+            w<input type="text" @keyup.w ="add(5,10)"><br>
+            <!--组合快捷键-->
+            Ctrl + Enter <input type="text" @keyup.ctrl.enter="add(40,60)"><br>
+            Ctrl + A <input type="text" @keyup.ctrl.a="add(20,30)">
+        </div>
+
+        <script type="module">
+            //绑定事件 v-on
+            import { createApp, reactive } from './vue.esm-browser.js'
+
+            createApp({
+                setup(){
+                    const web = reactive({
+                        url:"inmydream.com",
+                        user:0
+                    })
+
+                    const edit = () =>{
+                        //edit修改方法
+                        web.url = "www.inmydream.com"
+                    }
+ 
+                    const add = (a,b) =>{
+                        web.user += a+b
+                    }
+
+                    return{
+                        msg:"success",
+                        web,
+                        edit,
+                        add
+                    }
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>
