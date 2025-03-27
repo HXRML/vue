@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width.initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            {{ web.show }} <hr>
+            <p v-show="web.show">梦里</p>
+            <p v-if="web.show">www.mengli.com</p>
+
+            <button @click="toggle">切换显示状态</button>
+            <p v-if="web.user < 1000">新网站</p>
+            <p v-else-if="web.user >= 1000 && web.user < 10000">优秀网站</p>
+            <p v-else>资深网站</p>
+        </div>
+        <script type="module">
+            //;
+
+            import {createApp,reactive,ref} from './vue.esm-browser.js'
+            //解构赋值，将createApp和reactive属性赋值给createApp和reactive变量
+            createApp({
+                setup(){
+                    const web = reactive({
+                        //响应式对象web
+                        show:true, //true代表网站可以正常浏览
+                        user:20999
+                    })
+                    //定义一个可以切换show状态的方法
+                    const toggle = () =>{
+                        //web.show = false产生的效果：点击button后变成false，但再次点击仍然是false
+                        web.show = !web.show //可以通过点击按钮使false与true交替出现，即产生切换效果
+                    }
+                    return {
+                        web,
+                        toggle
+                    }
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>
