@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width.initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .textColor{
+                color:blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+           <!-- :value-->
+            <h3>value="mengli.com"</h3>
+            <input type="text" value="mengli.com">
+            
+            <h3>v-bind:value="web.url"</h3>
+            <input type="text" v-bind:value="web.url">
+
+            <h3>简写形式:value="web.url"</h3>
+            <input type="text" :value="web.url">
+            <!-- :src-->
+             <h3>src="windows.jpg"</h3>
+             <img src="windows.jpg">
+
+             <h3>v-bind:src="web.img"</h3>
+             <img v-bind:src="web.img">
+
+             <h3>:src="web.img"</h3>
+             <img v-bind:src="web.img">
+             <!-- :class-->
+              <h3>class="textColor"</h3>
+              <b class="textColor">梦里</b>
+
+              <h3>:class="{textColor:web.fontStatus}"</h3>
+              <b :class="{textColor:web.fontStatus}">梦里</b>
+        </div>
+        <script type="module">
+            //动态属性绑定
+
+            import {createApp,reactive,ref} from './vue.esm-browser.js'
+            //解构赋值，将createApp和reactive属性赋值给createApp和reactive变量
+            createApp({
+                setup(){
+                    const web = reactive({
+                        //通过reactive创建一个响应式对象
+                        url: "www.mengli.com",
+                        img: "windows.jpg",
+                        fontStatus:false
+                    })
+                    return{
+                        web
+                    }
+                }
+            }).mount("#app")//挂载到id为app的元素上
+        </script>
+    </body>
+</html>
